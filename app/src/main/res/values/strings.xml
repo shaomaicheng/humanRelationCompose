@@ -1,0 +1,143 @@
+<resources>
+    <string name="app_name_release">份子记账</string>
+    <string name="app_name_debug">测试版份子</string>
+
+    <!-- login -->
+    <string name="login_app_name">份子记账</string>
+    <string name="login_welcome">欢迎你</string>
+    <string name="login_next_step">下一步</string>
+    <string name="login_confirm">登录</string>
+    <string name="login_input_sms_hint">请输入验证码</string>
+    <string name="login_phonenumber_isempty">手机号码为空</string>
+    <string name="login_input_send">发送验证码</string>
+    <string name="login_smscode_count_down">%s秒后重发</string>
+    <string name="login_sms_send_success">验证码发送成功</string>
+    <string name="login_sms_send_fail">验证码发送失败</string>
+    <string name="login_input_phonenumber">输入手机号</string>
+    <string name="login_need_agree">您需要同意用户协议才能登录</string>
+    <string name="login_fail">登录失败%s</string>
+    <string name="login_msg_code_error">手机验证码错误</string>
+    <string name="login_fail_with_message">登录失败-%s</string>
+    <string name="login_success">登录成功！</string>
+
+    <string name="home_books">账本</string>
+    <string name="home_relation">关系</string>
+    <string name="home_statistics">统计</string>
+    <string name="home_mine">我的</string>
+
+    <string name="books_type_newstore">新店开业</string>
+    <string name="books_type_study">金榜题名</string>
+    <string name="books_type_birthday">寿星大寿</string>
+    <string name="books_type_wedding">参加婚礼</string>
+    <string name="books_type_baby">宝宝出生</string>
+    <string name="books_type_newYearKids">压岁红包</string>
+    <string name="books_type_baby_fullMoon">宝宝满月</string>
+    <string name="books_type_baby_age">宝宝周岁</string>
+    <string name="books_type_funeral">参加葬礼</string>
+    <string name="create_new">新增</string>
+    <string name="create_humanrelation">新增人情</string>
+    <string name="edit_humanrelation">修改人情</string>
+
+    <string name="book_type_income">收到的</string>
+    <string name="book_type_spend">送出的</string>
+    <string name="book_money_hint">0</string>
+    <string name="book_preset">预设金额</string>
+    <string name="book_choose_tip">选择账本</string>
+    <string name="book_choose_user_tip">姓名</string>
+    <string name="book_input_user">输入姓名</string>
+    <string name="book_choose_directory">从通讯录选择</string>
+    <string name="book_choose_from_relation">从联系人选择</string>
+    <string name="book_choose_relation">选择关系</string>
+    <string name="book_relation_tip">关系</string>
+    <string name="book_type_male">男方</string>
+    <string name="book_type_female">男方</string>
+    <string name="book_time_title">时间</string>
+    <string name="book_time_title_tips">选择时间</string>
+
+    <string name="save">保存</string>
+    <string name="date_format">yyyy年MM月dd日</string>
+
+    <string name="select_relation">选择关系</string>
+
+    <string name="relation_all">全部</string>
+    <string name="relation_male">男方</string>
+    <string name="relation_female">女方</string>
+    <string name="relation_relatives">亲戚</string>
+    <string name="relation_classmates">同学</string>
+    <string name="relation_friend">朋友</string>
+    <string name="relation_colleagues">同事</string>
+    <string name="relation_teacher">老师</string>
+    <string name="relation_student">学生</string>
+    <string name="relation_leader">领导</string>
+    
+    <string name="toast_money">请输入金额</string>
+    <string name="toast_books">请选择账本</string>
+    <string name="toast_name">请输入姓名</string>
+    <string name="toast_relation">请选择关系</string>
+    <string name="toast_date">请选择日期</string>
+    <string name="toast_save_success">保存成功</string>
+    <string name="toast_save_fail">保存失败</string>
+
+    <string name="list_no_more">没有更多数据了</string>
+    <string name="list_error">加载失败</string>
+    <string name="debug_paging_title">paging</string>
+
+
+    <string name="receive_tips">收到的</string>
+    <string name="spend_content">送出的 %s</string>
+    <string name="diff">收支差</string>
+    
+    <string name="title_relation">联系人</string>
+    <string name="relation_count">%s人</string>
+    <string name="search">搜索</string>
+    <string name="relation_create">添加联系人</string>
+    <string name="relation_add_tips">新增联系人</string>
+
+    <string name="relation_name">姓名</string>
+    <string name="relation_phone">联系电话</string>
+    <string name="relation_remark">备注</string>
+    <string name="relation_relation">选择关系</string>
+
+    <string name="toast_relation_name">请输入姓名</string>
+    <string name="toast_relation_relation">请选择关系</string>
+    <string name="phone">手机</string>
+    <string name="newone">新增</string>
+    <string name="all">全部</string>
+    <string name="new_relation">新增关系</string>
+    <string name="cancel">取消</string>
+    <string name="relation">关系</string>
+    <string name="relation_exist">已经存在%s啦</string>
+    <string name="loading">加载中...</string>
+
+    <string name="setting_nickname">设置昵称</string>
+    <string name="next_version_will_have">敬请期待</string>
+
+    <string name="mine_tools">实用工具</string>
+    <string name="data_import_title">数据导入</string>
+    <string name="data_import_tips">导入数据到本账号</string>
+
+    <string name="data_export_title">数据导出</string>
+    <string name="data_export_tips">导出数据到Excel文件</string>
+    <string name="mine_import_people">导入联系人</string>
+    <string name="mine_event_notification">事件提醒</string>
+    <string name="mine_notification">消息通知</string>
+    <string name="mine_presetting_money">预设礼金</string>
+    <string name="mine_books_manager">账本管理</string>
+    <string name="mine_share">分享应用</string>
+    <string name="mine_fallback">反馈意见</string>
+    <string name="mine_contact_us">联系我们</string>
+    <string name="mine_about">关于我们</string>
+    <string name="mine_answer">常见问题</string>
+    <string name="mine_more">更多应用</string>
+
+    <string name="settings">设置</string>
+    <string name="settings_profile">设置用户资料</string>
+    <string name="settings_version">版本：%s</string>
+    <string name="settings_logout">退出登录</string>
+    <string name="logout_text">确定退出登录吗？</string>
+
+    <string name="confirm">确定</string>
+
+    <string name="index_add_book">新增账本</string>
+    <string name="index_add_book_item">新增人情</string>
+</resources>

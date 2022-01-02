@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="black_24">#3D000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="white_10">#1AFFFFFF</color>
+    <color name="white_20">#33FFFFFF</color>
+    <color name="white_24">#3DFFFFFF</color>
+    <color name="white_80">#CCFFFFFF</color>
+
+    <color name="window_bg">#fffafafa</color>
+
+    <color name="primary_500">#F14848</color>
+    <color name="primary_500_50">#80F14848</color>
+    
+    <color name="color_333333">#333333</color>
+    <color name="color_ccccccc">#cccccc</color>
+    <color name="color_e1e1e1">#E1E1E1</color>
+    <color name="color_FC775B">#FC775B</color>
+    <color name="color_FC775B_30">#4DFC775B</color>
+    <color name="color_F64935_30">#4DF64935</color>
+    <color name="color_F64935">#F64935</color>
+    <color name="color_FC775B_50">#80FC775B</color>
+    <color name="color_F64935_50">#80F64935</color>
+    <color name="color_999999">#999999</color>
+    <color name="color_666666">#666666</color>
+    <color name="color_F0F0F0">#F0F0F0</color>
+
+    <color name="color_262626">#262626</color>
+    <color name="books_card1_start">#FC775B</color>
+    <color name="books_card1_end">#F64935</color>
+    <color name="books_card1_arc">#1AF64935</color>
+
+    <color name="books_card2_start">#5B88FC</color>
+    <color name="books_card2_end">#3554F6</color>
+    <color name="books_card2_arc">#1A3554F6</color>
+
+    <color name="books_card3_start">#FCC55B</color>
+    <color name="books_card3_end">#F6D835</color>
+    <color name="books_card3_arc">#1AF6D835</color>
+
+    <color name="books_card4_start">#5BCCFC</color>
+    <color name="books_card4_end">#2DABE1</color>
+    <color name="books_card4_arc">#1A2DABE1</color>
+
+    <color name="books_card5_start">#8388FF</color>
+    <color name="books_card5_end">#5552EE</color>
+    <color name="books_card5_arc">#1A5552EE</color>
+
+    <color name="books_card6_start">#FFB775</color>
+    <color name="books_card6_end">#E54C37</color>
+    <color name="books_card6_arc">#1AE54C37</color>
+
+    <color name="color_fff1ef">#fff1ef</color>
+    <color name="color_f14848">#f14848</color>
+
+    <color name="color_f6f6f6">#f6f6f6f6</color>
+    <color name="color_00bc4b">#00BC4B</color>
+</resources>

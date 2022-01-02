@@ -1,0 +1,148 @@
+﻿<layout>
+    <data>
+        <import type="android.view.View"/>
+        <import type="com.chenglei.humanrelationbooking.books.BooksBlockStatus"/>
+        <import type="com.chenglei.humanrelationbooking.books.vms.BooksHomeViewModel"/>
+        <import type="com.chenglei.humanrelationbooking.books.create.BookItemType"/>
+        <variable
+            name="clicker"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="booksVM"
+            type="com.chenglei.humanrelationbooking.books.vms.BooksHomeViewModel" />
+
+        <variable
+            name="showEmpty"
+            type="Boolean" />
+
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/white">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="68dp">
+                <TextView
+                    android:id="@+id/title"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_name"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="24sp"
+                    android:layout_marginStart="12dp"
+                    android:onClick="@{clicker}"
+                    />
+                <ImageView
+                    android:id="@+id/addBookItem"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginEnd="12dp"
+                    android:padding="10dp"
+                    android:onClick="@{clicker}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_add"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <include
+                android:id="@+id/booksBlock"
+                layout="@layout/layout_books_block"
+                />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/typeContainer"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="14dp"
+                tools:visibility="visible"
+                android:visibility="@{booksVM.status == BooksBlockStatus.Expand ? View.GONE : View.VISIBLE}"
+                android:layout_marginEnd="14dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/booksContainer"
+                app:radius="@{8f}"
+                app:solid="@{@color/color_F0F0F0}">
+
+                <TextView
+                    android:id="@+id/tvIncome"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_margin="2dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:onClick="@{clicker}"
+                    android:text="@string/book_type_income"
+                    android:textColor="@color/color_262626"
+                    android:textSize="14sp"
+                    app:radius="@{booksVM.type == BookItemType.Income ? 6f : 0f}"
+                    app:solid="@{booksVM.type == BookItemType.Income ? @color/white : @color/transparent}" />
+
+                <TextView
+                    android:id="@+id/tvSpend"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_margin="2dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:onClick="@{clicker}"
+                    android:text="@string/book_type_spend"
+                    android:textColor="@color/color_262626"
+                    android:textSize="14sp"
+                    app:radius="@{booksVM.type == BookItemType.Spend ? 6f : 0f}"
+                    app:solid="@{booksVM.type == BookItemType.Spend ? @color/white : @color/transparent}" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/swipeRefresh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:strokeColor="@color/primary_500"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/typeContainer"
+                app:layout_constraintBottom_toBottomOf="parent">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/booksList"
+                    android:layout_marginTop="14dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <ImageView
+            android:id="@+id/bookEmptyImg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/img_relation_empty"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="@{showEmpty ? View.VISIBLE : View.GONE}"
+            tools:visibility="visible"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

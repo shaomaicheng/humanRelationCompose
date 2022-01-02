@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="transparent">#00000000</color>
+    <color name="primary_begin">#5AA8FF</color>
+    <color name="primary_end">#0F85FF</color>
+
+    <color name="press_primary_begin">#3595FF</color>
+    <color name="press_primary_end">#0C6DD1</color>
+
+    <color name="primary">#007FFF</color>
+
+</resources>

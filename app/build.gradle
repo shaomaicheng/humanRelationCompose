@@ -1,0 +1,129 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'org.jetbrains.kotlin.android'
+    id "org.jetbrains.kotlin.kapt"
+    id 'kotlin-parcelize'
+//    id 'org.jetbrains.kotlin.android' version '1.5.10'
+}
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    signingConfigs {
+
+        releaseConfig {
+
+            storeFile file('sign/release.jks')
+            storePassword '123chenglei'
+            keyAlias 'release'
+            keyPassword '123chenglei'
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
+    defaultConfig {
+        applicationId "com.chenglei.humanrelationbooking"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.appversion.versionCode
+        versionName rootProject.ext.appversion.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+
+    dataBinding {
+        enabled = true
+    }
+
+    buildTypes {
+        debug {
+            applicationIdSuffix ".debug"
+            resValue 'string', 'app_name', "@string/app_name_debug"
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        release {
+            minifyEnabled true
+            resValue 'string', 'app_name', "@string/app_name_release"
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.releaseConfig
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = '11'
+    }
+    buildFeatures {
+        compose true
+        viewBinding true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion rootProject.depends.compose
+    }
+}
+
+dependencies {
+
+    api project(':common')
+
+    implementation rootProject.depends.ktx
+    implementation rootProject.depends.appcompat
+    implementation rootProject.depends.constraintLayout
+    testImplementation rootProject.depends.junit
+    androidTestImplementation rootProject.depends.androidJunit
+    androidTestImplementation rootProject.depends.espresso
+    implementation rootProject.depends.md
+
+    implementation "${rootProject.depends.lifecycleKtx}"
+
+    /**
+     * jetpack compose
+     */
+    implementation "androidx.compose.ui:ui:${rootProject.depends.compose}"
+    // Tooling support (Previews, etc.)
+    implementation "androidx.compose.ui:ui-tooling:${rootProject.depends.compose}"
+    // Foundation (Border, Background, Box, Image, Scroll, shapes, animations, etc.)
+    implementation "androidx.compose.foundation:foundation:${rootProject.depends.compose}"
+    // Material Design
+    implementation "androidx.compose.material:material:${rootProject.depends.compose}"
+    // Material design icons
+    implementation "androidx.compose.material:material-icons-core:${rootProject.depends.compose}"
+    implementation "androidx.compose.material:material-icons-extended:${rootProject.depends.compose}"
+    // Integration with activities
+    implementation "androidx.activity:activity-compose:${rootProject.depends.compsoeActivity}"
+    // Integration with ViewModels
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:${rootProject.depends.composeViewModel}"
+    // Integration with observables
+    implementation "androidx.compose.runtime:runtime-livedata:${rootProject.depends.compose}"
+    implementation "androidx.navigation:navigation-compose:${rootProject.depends.composeNavigator}"
+    implementation "${rootProject.depends.composePaging}"
+    // UI Tests
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:${rootProject.depends.compose}"
+
+
+    implementation 'io.github.bmob:android-sdk:3.8.4'
+    implementation "io.reactivex.rxjava2:rxjava:2.2.8"
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    implementation 'com.squareup.okhttp3:okhttp:4.8.1'
+    implementation 'com.squareup.okio:okio:2.2.2'
+    implementation 'com.google.code.gson:gson:2.8.5'
+
+    implementation "androidx.room:room-runtime:${rootProject.room_version}"
+    kapt "androidx.room:room-compiler:${rootProject.room_version}"
+    implementation "androidx.room:room-ktx:${rootProject.room_version}"
+
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
+    implementation "androidx.paging:paging-runtime:${rootProject.paging}"
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+
+    implementation "com.google.accompanist:accompanist-pager:0.18.0"
+    implementation "com.google.accompanist:accompanist-pager-indicators:0.18.0"
+    implementation "com.google.accompanist:accompanist-swiperefresh:0.18.0"
+}

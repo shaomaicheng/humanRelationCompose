@@ -1,0 +1,65 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+}
+
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = '11'
+    }
+}
+
+dependencies {
+
+    implementation rootProject.depends.kotlin
+    implementation rootProject.depends.ktx
+    implementation rootProject.depends.appcompat
+    implementation rootProject.depends.constraintLayout
+    testImplementation rootProject.depends.junit
+    androidTestImplementation rootProject.depends.androidJunit
+    androidTestImplementation rootProject.depends.espresso
+    api rootProject.depends.livedataKtx
+    api rootProject.depends.viewmodelKtx
+    // retrofit
+    api rootProject.depends.retrofit
+    api rootProject.depends.retrofitConvertGson
+    api rootProject.depends.retrofitConvertScalars
+    api rootProject.depends.okhttpLogger
+
+    api rootProject.depends.glide
+    kapt rootProject.depends.kaptGlide
+    
+    api rootProject.depends.md
+
+    api rootProject.depends.permissionX
+    api rootProject.depends.imagePick
+}

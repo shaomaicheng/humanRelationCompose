@@ -1,0 +1,323 @@
+﻿<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.chenglei.humanrelationbooking.books.create.BookItemType" />
+
+        <import type="android.view.View" />
+
+        <import type="com.chenglei.humanrelationbooking.utils.KtxKt"/>
+
+        <import type="com.chenglei.humanrelationbooking.books.create.CreateViewModel"/>
+
+        <variable
+            name="clicker"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="createVM"
+            type="com.chenglei.humanrelationbooking.books.create.CreateViewModel" />
+        <variable
+            name="username"
+            type="String" />
+
+        <import type="android.text.TextUtils"/>
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:background="@color/white">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/typeContainer"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="26dp"
+                android:layout_marginEnd="14dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:radius="@{8f}"
+                app:solid="@{@color/color_F0F0F0}">
+
+                <TextView
+                    android:id="@+id/tvIncome"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_margin="2dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:onClick="@{clicker}"
+                    android:text="@string/book_type_income"
+                    android:textColor="@color/color_262626"
+                    android:textSize="14sp"
+                    app:radius="@{createVM.type == BookItemType.Income ? 6f : 0f}"
+                    app:solid="@{createVM.type == BookItemType.Income ? @color/white : @color/transparent}" />
+
+                <TextView
+                    android:id="@+id/tvSpend"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_margin="2dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:onClick="@{clicker}"
+                    android:text="@string/book_type_spend"
+                    android:textColor="@color/color_262626"
+                    android:textSize="14sp"
+                    app:radius="@{createVM.type == BookItemType.Spend ? 6f : 0f}"
+                    app:solid="@{createVM.type == BookItemType.Spend ? @color/white : @color/transparent}" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <!--金额-->
+            <EditText
+                android:id="@+id/etMoney"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/background_edittext"
+                android:hint="@string/book_money_hint"
+                android:inputType="numberDecimal"
+                android:text='@{createVM.money != 0f? createVM.money.toString() : ""}'
+                android:textColor="@color/primary_500"
+                android:textColorHint="@color/color_ccccccc"
+                android:textCursorDrawable="@color/primary_500"
+                android:textSize="48sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/typeContainer" />
+
+            <TextView
+                android:id="@+id/presetTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/book_preset"
+                android:textColor="@color/color_333333"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/etMoney" />
+
+            <LinearLayout
+                android:id="@+id/presetContainer"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/presetTitle" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/containerChooseBook"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@id/presetContainer">
+
+                <TextView
+                    android:id="@+id/chooseBookTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:drawableStart="@drawable/icon_book"
+                    android:drawablePadding="8dp"
+                    android:text="@string/home_books"
+                    android:textColor="@color/color_666666"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:onClick="@{clicker}"
+                    android:id="@+id/tvChooseBook"
+                    android:layout_width="0dp"
+                    android:layout_height="54dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="6dp"
+                    android:background="@drawable/background_bottom_with_line"
+                    android:drawableEnd="@drawable/arrow_right"
+                    android:gravity="center_vertical|start"
+                    android:text="@{createVM.book == null ? @string/book_choose_tip : createVM.book.name}"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/chooseBookTitle"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/containerUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/containerChooseBook">
+
+                <TextView
+                    android:id="@+id/userNameTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:drawableStart="@drawable/icon_choose_user"
+                    android:drawablePadding="8dp"
+                    android:text="@string/book_choose_user_tip"
+                    android:textColor="@color/color_666666"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/tvChooseUser"
+                    android:layout_width="0dp"
+                    android:layout_height="54dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="6dp"
+                    android:background="@drawable/background_bottom_with_line"
+                    android:drawableEnd="@drawable/arrow_right"
+                    android:gravity="center_vertical|start"
+                    android:hint="@string/book_input_user"
+                    android:text="@{username}"
+                    android:textColorHint="@color/color_666666"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/userNameTitle"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/chooseFromDirectory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/book_choose_from_relation"
+                    android:textColor="@color/primary_500"
+                    tools:visibility="visible"
+                    android:onClick="@{clicker}"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/tvChooseUser"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- 关系 -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/containerRelation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/containerUsername">
+
+                <TextView
+                    android:id="@+id/relationTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:drawableStart="@drawable/icon_choose_relation"
+                    android:drawablePadding="8dp"
+                    android:text="@string/book_relation_tip"
+                    android:textColor="@color/color_666666"
+                    android:textSize="14sp"
+                    android:onClick="@{clicker}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvRelation"
+                    android:layout_width="0dp"
+                    android:layout_height="54dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="6dp"
+                    android:background="@drawable/background_bottom_with_line"
+                    android:drawableEnd="@drawable/arrow_right"
+                    android:gravity="center_vertical|start"
+                    android:text="@{TextUtils.isEmpty(createVM.relation) ? @string/book_choose_relation : createVM.relation}"
+                    android:onClick="@{clicker}"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/relationTitle"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- 时间-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/containerTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/containerRelation">
+
+                <TextView
+                    android:id="@+id/timeTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:drawableStart="@drawable/time"
+                    android:drawablePadding="8dp"
+                    android:text="@string/book_time_title"
+                    android:textColor="@color/color_666666"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvTime"
+                    android:layout_width="0dp"
+                    android:layout_height="54dp"
+                    android:layout_marginStart="24dp"
+                    android:onClick="@{clicker}"
+                    android:layout_marginEnd="6dp"
+                    android:background="@drawable/background_bottom_with_line"
+                    android:drawableEnd="@drawable/arrow_right"
+                    android:gravity="center_vertical|start"
+                    android:textSize="14sp"
+                    app:showTimeFormat="@{createVM.time}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@id/timeTitle"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
+                    tools:text="@string/book_time_title_tips" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.hangshun.huadian.android.common.widget.PrimaryButton
+                android:id="@+id/btnSave"
+                app:layout_constraintTop_toBottomOf="@id/containerTime"
+                android:layout_marginTop="16dp"
+                android:onClick="@{clicker}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:text="@string/save"
+                android:enabled="@{!createVM.canSave()}"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                app:beginColor="@{@color/color_FC775B}"
+                app:endColor="@{@color/color_F64935}"
+                app:pressBegin="@{@color/color_FC775B_30}"
+                app:pressEnd="@{@color/color_F64935_30}"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>
