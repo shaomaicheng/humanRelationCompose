@@ -3,7 +3,6 @@
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.Keep
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -11,8 +10,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import cn.bmob.v3.BmobQuery
-import cn.bmob.v3.BmobUser
 import com.chenglei.humanrelationbooking.ActivityConst
 import com.chenglei.humanrelationbooking.R
 import com.chenglei.humanrelationbooking.base.*
@@ -24,7 +21,6 @@ import com.google.gson.reflect.TypeToken
 import com.matisse.utils.dp2px
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.InternalCoroutinesApi
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -126,9 +122,9 @@ class BookListViewModel(val books: List<Book>) : ListViewModel<String, Book>() {
         return if (books.isNotEmpty()) {
             ListMeta(books, false)
         }else{
-            val remotes = BmobQuery<Book>().addWhereEqualTo("userId", BmobUser.getCurrentUser().objectId)
-                .findObjectsSync(Book::class.java)
-            ListMeta(remotes, false)
+//            val remotes = BmobQuery<Book>().addWhereEqualTo("userId", BmobUser.getCurrentUser().objectId)
+//                .findObjectsSync(Book::class.java)
+            ListMeta(emptyList(), false)
         }
     }
 

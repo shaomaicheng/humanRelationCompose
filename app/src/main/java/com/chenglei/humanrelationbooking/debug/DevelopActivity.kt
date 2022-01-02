@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import cn.bmob.v3.BmobUser
 import com.chenglei.humanrelationbooking.R
 import com.chenglei.humanrelationbooking.databinding.DebugDevelopBinding
 import com.chenglei.humanrelationbooking.dialog.LoadingDialog
@@ -21,7 +20,6 @@ import com.hangshun.huadian.android.common.arch.toolbarConfig
         DevAdapter{view,p, item->
             when (item.type) {
                 DevItemType.Logout-> {
-                    BmobUser.logOut()
                 }
 
                 DevItemType.Loading -> {

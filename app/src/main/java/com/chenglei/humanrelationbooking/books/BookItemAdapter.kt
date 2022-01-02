@@ -17,7 +17,7 @@ import java.util.*
 class BookItemAdapter(private val itemClick:(BookItem, Int)->Unit): PagingDataAdapter<BookItem,BookItemViewHolder>(
     object : DiffUtil.ItemCallback<BookItem>() {
         override fun areItemsTheSame(oldItem: BookItem, newItem: BookItem): Boolean {
-            return oldItem.objectId == newItem.objectId
+            return false
         }
 
         override fun areContentsTheSame(oldItem: BookItem, newItem: BookItem): Boolean {

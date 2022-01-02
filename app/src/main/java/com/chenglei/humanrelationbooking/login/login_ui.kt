@@ -6,7 +6,6 @@ import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
@@ -24,13 +23,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import cn.bmob.v3.exception.BmobException
 import com.chenglei.humanrelationbooking.R
 import com.chenglei.humanrelationbooking.home.HomeActivity
 import com.chenglei.humanrelationbooking.ui.CommonButton
 import com.chenglei.humanrelationbooking.ui.Loading
 import com.chenglei.humanrelationbooking.ui.Page
-import kotlinx.coroutines.InternalCoroutinesApi
 
 
 @Composable
@@ -158,7 +155,7 @@ fun LoginPageInner() {
                                                 context,
                                                 String.format(
                                                     context.getString(R.string.login_fail),
-                                                    (e as? BmobException)?.errorCode ?: 0
+                                                    0
                                                 ),
                                                 Toast.LENGTH_SHORT
                                             ).show()

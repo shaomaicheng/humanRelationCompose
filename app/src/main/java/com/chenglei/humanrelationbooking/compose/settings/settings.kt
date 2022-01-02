@@ -6,7 +6,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.AlertDialog
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -20,7 +19,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import cn.bmob.v3.BmobUser
 import com.chenglei.humanrelationbooking.MainActivity
 import com.chenglei.humanrelationbooking.R
 import com.chenglei.humanrelationbooking.ui.Arrow
@@ -104,7 +102,6 @@ fun Settings(controller: NavController) {
                         .clickable {
                             logoutConfirmShow.value = false
                             // 确认注销
-                            BmobUser.logOut()
                             context.startActivity(Intent(context, MainActivity::class.java).apply {
                                 flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
                             })

@@ -4,14 +4,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
-import androidx.paging.DifferCallback
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager.widget.PagerAdapter
-import cn.bmob.v3.BmobQuery
-import cn.bmob.v3.BmobUser
 import com.chenglei.humanrelationbooking.R
 import com.chenglei.humanrelationbooking.base.*
 import com.chenglei.humanrelationbooking.databinding.FragmentSelectRelationItemBinding
@@ -67,7 +62,7 @@ class RelationItemAdapter(
 ) : PagingDataAdapter<RelationItem, RelationItemViewHolder>(object :
     DiffUtil.ItemCallback<RelationItem>() {
     override fun areItemsTheSame(oldItem: RelationItem, newItem: RelationItem): Boolean {
-        return oldItem.objectId == newItem.objectId
+        return false
     }
 
     override fun areContentsTheSame(oldItem: RelationItem, newItem: RelationItem): Boolean {
@@ -108,12 +103,12 @@ itemClick: (View, Int, RelationItem) -> Unit
 
 class RelationItemsViewModel: ListViewModel<Any,RelationItem>() {
     override suspend fun fetch(pageData: PageData<Any>): ListMeta<RelationItem> {
-        val query = BmobQuery<RelationItem>()
-            .addWhereEqualTo("owner", BmobUser.getCurrentUser().objectId)
-            .order("-createdAt")
-            .setLimit(pageData.pageSize)
-            .setSkip(pageData.pageNo * pageData.pageSize)
-        val items = query.findObjectsSync(RelationItem::class.java)
-        return ListMeta(items, items.size == pageData.pageSize)
+//        val query = BmobQuery<RelationItem>()
+//            .addWhereEqualTo("owner", BmobUser.getCurrentUser().objectId)
+//            .order("-createdAt")
+//            .setLimit(pageData.pageSize)
+//            .setSkip(pageData.pageNo * pageData.pageSize)
+//        val items = query.findObjectsSync(RelationItem::class.java)
+        return ListMeta(emptyList(),false)
     }
 }

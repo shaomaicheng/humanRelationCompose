@@ -55,7 +55,7 @@ fun RelationList(navController:NavController, relation: String, position: Int) {
     }
     ListWithStatus(
         vm = relationListViewModel,
-        keyGenerator = {item -> item.objectId},
+        keyGenerator = {item -> System.currentTimeMillis().toString()},
         listModifier = modifier,
         empty = {
             Column(

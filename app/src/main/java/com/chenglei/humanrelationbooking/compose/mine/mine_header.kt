@@ -18,7 +18,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import cn.bmob.v3.BmobUser
 import com.chenglei.humanrelationbooking.R
 import com.chenglei.humanrelationbooking.base.ComposeActivity
 import com.chenglei.humanrelationbooking.compose.home.Hosts
@@ -28,7 +27,7 @@ import com.chenglei.humanrelationbooking.ui.ButtonNoIndication
 @Composable
 fun MineHeader() {
     val nickname = remember {
-        BmobUser.getCurrentUser().username
+        "cheng"
     }
     val context = LocalContext.current
     Box(modifier = Modifier

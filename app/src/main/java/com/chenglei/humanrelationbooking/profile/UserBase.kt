@@ -1,12 +1,11 @@
 ﻿package com.chenglei.humanrelationbooking.profile
 
-import cn.bmob.v3.BmobUser
 
 data class UserBase(
     val avatarUrl:String? = "",
     val gender:Int = Gender.Unknow.value,
     val birthday:Long = 0L
-): BmobUser() {
+) {
 
 }
 

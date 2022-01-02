@@ -5,7 +5,6 @@ import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
-import cn.bmob.v3.BmobQuery
 import com.chenglei.humanrelationbooking.BooksApp
 import com.hangshun.huadian.android.common.meta.CommonStatus
 import com.hangshun.huadian.android.common.meta.ParamAndResult
@@ -56,14 +55,6 @@ fun<E> MutableList<E>.replace(new:List<E>) {
 }
 
 
-fun<T> BmobQuery<T>.useQuery(block: (BmobQuery<T>) -> List<T>):List<T> {
-    return try {
-        block(this)
-    } catch (e:Exception) {
-        e.printStackTrace()
-        emptyList()
-    }
-}
 
 fun getString(@StringRes res: Int) = BooksApp.getContext().getString(res)
 fun getCompatColor(@ColorRes colorRes:Int) = ContextCompat.getColor(BooksApp.getContext(), colorRes)

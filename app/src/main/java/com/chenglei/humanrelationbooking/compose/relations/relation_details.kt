@@ -20,18 +20,14 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import androidx.paging.compose.collectAsLazyPagingItems
-import cn.bmob.v3.BmobUser
 import com.chenglei.humanrelationbooking.R
 import com.chenglei.humanrelationbooking.base.EventCenter
 import com.chenglei.humanrelationbooking.base.EventCenterKey
-import com.chenglei.humanrelationbooking.books.create.BookItemType
 import com.chenglei.humanrelationbooking.books.create.RecordCreateActivity
 import com.chenglei.humanrelationbooking.getString
 import com.chenglei.humanrelationbooking.meta.BookItem
@@ -40,24 +36,6 @@ import com.chenglei.humanrelationbooking.vms.RelaitonDetailListVM
 import com.chenglei.humanrelationbooking.vms.RelationBooksRequest
 import com.chenglei.humanrelationbooking.vms.RelationDetailViewModel
 import com.chenglei.humanrelationbooking.vms.RelationItem
-import kotlinx.coroutines.InternalCoroutinesApi
-
-
-@InternalCoroutinesApi
-@Composable
-@Preview
-fun PageTest() {
-    RelationDetail(
-        relation = RelationItem(
-            "chenglei",
-            "朋友",
-            "17364513280",
-            "备注",
-            BmobUser.getCurrentUser().objectId
-        ), controller = rememberNavController()
-    )
-}
-
 @Composable
 fun RelationDetail(relation: RelationItem?, controller: NavController) {
     val listViewModel = viewModel<RelaitonDetailListVM>()
@@ -71,9 +49,6 @@ fun RelationDetail(relation: RelationItem?, controller: NavController) {
     DisposableEffect(key1 = EventCenterKey.Relationitem) {
         EventCenter.observer<RelationItem>(EventCenterKey.Relationitem, scope) {
             it?.let { relationItem->
-                if (relationItem.objectId == relationState.value?.objectId) {
-                    relationState.value = relationItem
-                }
             }
         }
         EventCenter.observer<BookItem>(EventCenterKey.BookItem, scope = scope) {
@@ -273,7 +248,7 @@ fun RelationDetail(relation: RelationItem?, controller: NavController) {
                 ) {
                     ListWithStatus(
                         vm = listViewModel,
-                        keyGenerator = { item -> item.objectId },
+                        keyGenerator = { item-> System.currentTimeMillis().toString()},
                         empty =  {
                             Box(Modifier.fillMaxSize()) {
                                 Image(

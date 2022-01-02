@@ -5,14 +5,6 @@ import android.os.Looper
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.viewModelScope
-import cn.bmob.v3.BmobBatch
-import cn.bmob.v3.BmobQuery
-import cn.bmob.v3.BmobUser
-import cn.bmob.v3.datatype.BatchResult
-import cn.bmob.v3.exception.BmobException
-import cn.bmob.v3.listener.FindListener
-import cn.bmob.v3.listener.QueryListListener
-import cn.bmob.v3.listener.UpdateListener
 import com.chenglei.humanrelationbooking.R
 import com.chenglei.humanrelationbooking.base.EventCenter
 import com.chenglei.humanrelationbooking.base.EventCenterKey
@@ -73,16 +65,16 @@ class CreateViewModel : BaseViewModel() {
 
     fun initData(bookItem: BookItem) {
         io {
-            BmobQuery<Book>().addWhereEqualTo("userId", BmobUser.getCurrentUser().objectId)
-                .addWhereEqualTo("name", bookItem.bookName)
-                .findObjects(object : FindListener<Book>() {
-                    override fun done(p0: MutableList<Book>?, p1: BmobException?) {
-                        p0?.let { books->
-                            books.takeIf { it.size == 1 }?.let { this@CreateViewModel._book.value = it[0] }
-                        }
-                    }
-
-                })
+//            BmobQuery<Book>().addWhereEqualTo("userId", BmobUser.getCurrentUser().objectId)
+//                .addWhereEqualTo("name", bookItem.bookName)
+//                .findObjects(object : FindListener<Book>() {
+//                    override fun done(p0: MutableList<Book>?, p1: BmobException?) {
+//                        p0?.let { books->
+//                            books.takeIf { it.size == 1 }?.let { this@CreateViewModel._book.value = it[0] }
+//                        }
+//                    }
+//
+//                })
         }
         _username.value = bookItem.username
         _time.value = bookItem.timestamp
@@ -179,20 +171,21 @@ class CreateViewModel : BaseViewModel() {
             bookName = book.value!!.name,
             relation = relation.value,
             timestamp = time.value,
-            userId = BmobUser.getCurrentUser().objectId
         )
 
         io {
-            val books = BmobQuery<Book>()
-                .addWhereEqualTo("userId", BmobUser.getCurrentUser().objectId)
-                .addWhereEqualTo("name", bookItem.bookName)
-                .findObjectsSync(Book::class.java)
-            val relations = BmobQuery<RelationItem>()
-                .addWhereEqualTo("name", bookItem.username)
-                .addWhereEqualTo("relation", bookItem.relation)
-                .addWhereEqualTo("owner", BmobUser.getCurrentUser().objectId)
-                .findObjectsSync(RelationItem::class.java)
+//            val books = BmobQuery<Book>()
+//                .addWhereEqualTo("userId", BmobUser.getCurrentUser().objectId)
+//                .addWhereEqualTo("name", bookItem.bookName)
+//                .findObjectsSync(Book::class.java)
+//            val relations = BmobQuery<RelationItem>()
+//                .addWhereEqualTo("name", bookItem.username)
+//                .addWhereEqualTo("relation", bookItem.relation)
+//                .addWhereEqualTo("owner", BmobUser.getCurrentUser().objectId)
+//                .findObjectsSync(RelationItem::class.java)
 
+            val books = emptyList<Book>()
+            val relations = emptyList<RelationItem>()
             books.takeIf {
                 it.size == 1
             }?.let { books->
@@ -233,43 +226,40 @@ class CreateViewModel : BaseViewModel() {
                         relationItem.income -= oldItem.money
                     }
                 }
-                    relationItemUpdate = relationItem.new().apply {
-                        objectId = relationItem.objectId
-                    }
+                    relationItemUpdate = relationItem.new()
                 }
-                bookItem.objectId = oldItem.objectId
-                val updateBook = Book(book.name, book.userId, book.income, book.spend)
+                val updateBook = Book(book.name,book.income, book.spend)
 
-                BmobBatch()
-                    .updateBatch(
-                        relationItemUpdate?.let {relationItemUpdate->
-                            listOf(
-                                bookItem,
-                                updateBook.apply { objectId = book.objectId },
-                                relationItemUpdate
-                            )
-                        }?: listOf(bookItem, updateBook.apply { objectId = book.objectId })
-                    )
-                    .doBatch(object : QueryListListener<BatchResult>() {
-                        override fun done(result: MutableList<BatchResult>?, e: BmobException?) {
-                            e?.let {
-                                toast(R.string.toast_save_fail)
-                            } ?: kotlin.run {
-                                _submitSuccess.value = true
-                                EventCenter.post(EventCenterKey.Book, updateBook)
-                                relationItemUpdate?.let { relationItemUpdate->
-                                    EventCenter.post(EventCenterKey.Relationitem, relationItemUpdate)
-                                }
-                                result?.let {
-                                    it[0]?.let { result->
-                                        bookItem.objectId = result.objectId
-                                        EventCenter.post(EventCenterKey.BookItem, bookItem)
-                                    }
-                                }
-                            }
-                        }
-
-                    })
+//                BmobBatch()
+//                    .updateBatch(
+//                        relationItemUpdate?.let {relationItemUpdate->
+//                            listOf(
+//                                bookItem,
+//                                updateBook.apply { objectId = book.objectId },
+//                                relationItemUpdate
+//                            )
+//                        }?: listOf(bookItem, updateBook.apply { objectId = book.objectId })
+//                    )
+//                    .doBatch(object : QueryListListener<BatchResult>() {
+//                        override fun done(result: MutableList<BatchResult>?, e: BmobException?) {
+//                            e?.let {
+//                                toast(R.string.toast_save_fail)
+//                            } ?: kotlin.run {
+//                                _submitSuccess.value = true
+//                                EventCenter.post(EventCenterKey.Book, updateBook)
+//                                relationItemUpdate?.let { relationItemUpdate->
+//                                    EventCenter.post(EventCenterKey.Relationitem, relationItemUpdate)
+//                                }
+//                                result?.let {
+//                                    it[0]?.let { result->
+//                                        bookItem.objectId = result.objectId
+//                                        EventCenter.post(EventCenterKey.BookItem, bookItem)
+//                                    }
+//                                }
+//                            }
+//                        }
+//
+//                    })
             } ?: kotlin.run {
                 Handler(Looper.getMainLooper()).run {
                     toast(R.string.toast_save_fail)
@@ -294,78 +284,7 @@ class CreateViewModel : BaseViewModel() {
             bookName = book.value!!.name,
             relation = relation.value,
             timestamp = time.value,
-            userId = BmobUser.getCurrentUser().objectId
         )
-
-
-        io {
-            val books = BmobQuery<Book>()
-                .addWhereEqualTo("userId", BmobUser.getCurrentUser().objectId)
-                .addWhereEqualTo("name", bookItem.bookName)
-                .findObjectsSync(Book::class.java)
-            val relations = BmobQuery<RelationItem>()
-                .addWhereEqualTo("name", bookItem.username)
-                .addWhereEqualTo("relation", bookItem.relation)
-                .addWhereEqualTo("owner", BmobUser.getCurrentUser().objectId)
-                .findObjectsSync(RelationItem::class.java)
-            if (books.size == 1) {
-                val book = books[0]
-                if (bookItem.type == BookItemType.Income.type) {
-                    book.income += bookItem.money
-                } else {
-                    book.spend += bookItem.money
-                }
-                var relationItemUpdate : RelationItem? = null
-                if (relations.size == 1) {
-                    val relationItem = relations[0]
-                    if (bookItem.type == BookItemType.Income.type) {
-                        relationItem.income(bookItem.money)
-                    } else {
-                        relationItem.spend(bookItem.money)
-                    }
-                    relationItemUpdate = relationItem.new().apply {
-                        objectId = relationItem.objectId
-                    }
-                }
-                val updateBook = Book(book.name, book.userId, book.income, book.spend)
-                BmobBatch()
-                    .insertBatch(listOf(bookItem))
-                    .updateBatch(
-                        relationItemUpdate?.let {relationItemUpdate->
-                            listOf(
-                                updateBook.apply { objectId = book.objectId },
-                                relationItemUpdate
-                            )
-                        }?: listOf(updateBook.apply { objectId = book.objectId })
-                    )
-                    .doBatch(object : QueryListListener<BatchResult>() {
-                        override fun done(result: MutableList<BatchResult>?, e: BmobException?) {
-                            e?.let {
-                                toast(R.string.toast_save_fail)
-                            } ?: kotlin.run {
-                                _submitSuccess.value = true
-                                // 首页监听账本
-                                // 联系人详情页监听记录和联系人item
-                                EventCenter.post(EventCenterKey.Book, updateBook)
-                                relationItemUpdate?.let { relationItemUpdate->
-                                    EventCenter.post(EventCenterKey.Relationitem, relationItemUpdate)
-                                }
-                                result?.let {
-                                    it[0]?.let { result->
-                                        bookItem.objectId = result.objectId
-                                        EventCenter.post(EventCenterKey.BookItem, bookItem)
-                                    }
-                                }
-                            }
-                        }
-
-                    })
-            } else {
-                Handler(Looper.getMainLooper()).post {
-                    toast(getString(R.string.toast_save_fail))
-                }
-            }
-        }
     }
 
 }

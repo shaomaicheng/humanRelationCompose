@@ -5,15 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import cn.bmob.v3.BmobQuery
-import cn.bmob.v3.BmobSMS
-import cn.bmob.v3.BmobUser
-import cn.bmob.v3.exception.BmobException
-import cn.bmob.v3.listener.FindListener
-import cn.bmob.v3.listener.LogInListener
-import cn.bmob.v3.listener.QueryListener
-import cn.bmob.v3.listener.SaveListener
-import com.chenglei.humanrelationbooking.BuildConfig
 import com.chenglei.humanrelationbooking.applog
 import com.chenglei.humanrelationbooking.profile.UserBase
 
@@ -127,13 +118,6 @@ class LoginViewModel : ViewModel() {
     fun sendSms(successCallback: (Boolean) -> Unit) {
         if (resendCounting.value == true) return
         startResendTimer()
-        BmobSMS.requestSMSCode(_phoneNumber.value,
-            "", object : QueryListener<Int>() {
-                override fun done(smsId: Int?, e: BmobException?) {
-                    successCallback.invoke(e == null)
-                }
-
-            })
     }
 
 
@@ -144,102 +128,18 @@ class LoginViewModel : ViewModel() {
         val phone = _phoneNumber.value
         val smsCode = _smsCode.value
 
-        val loginCallback = {success:Boolean,e:java.lang.Exception?->
-            _loading.value=false
+        val loginCallback = { success: Boolean, e: java.lang.Exception? ->
+            _loading.value = false
             callback.invoke(success, e)
         }
         _loading.value = true
 
-        if (BuildConfig.DEBUG) {
-            applog("debug，走用户名密码注册登录逻辑")
-            _loginBmobSDK(phone, smsCode, loginCallback)
-            return
-        }
 
         smsCode?.takeIf { it.length == 6 }?.let { smsCode ->
             phone?.takeIf { it.length == 11 }?.let { phone ->
-                BmobUser.signOrLoginByMobilePhone(phone, smsCode, object : LogInListener<BmobUser>() {
-                    override fun done(user: BmobUser?, e: BmobException?) {
-                        e?.apply {
-                            printStackTrace()
-                            loginCallback.invoke(false, e)
-                        }
-                        if (e == null) {
-                            loginCallback.invoke(true, null)
-                        }
-                    }
-                })
+                /// 登录
             }
         }
-    }
-
-    /**
-     * 测试用，节省一下短信费
-     * 直接用手机号作为用户名，验证码输入的地方作为密码去注册或者登录
-     */
-    private fun _loginBmobSDK(
-        phone: String?,
-        password: String?,
-        loginCallback: (Boolean, Exception?) -> Unit
-    ) {
-        val user = UserBase()
-        user.username = phone
-        user.setPassword(password)
-        BmobQuery<UserBase>().findObjects(
-            object : FindListener<UserBase>() {
-                override fun done(users: MutableList<UserBase>?, e: BmobException?) {
-                    e?.apply {
-                        this.printStackTrace()
-                        loginCallback.invoke(false, e)
-                    }
-                    if (e == null) {
-                        applog("查找用户。${users?.map { it.objectId }}")
-                        users?.let { users ->
-                            if (users.isEmpty()) {
-                                user.signUp(object : SaveListener<UserBase>() {
-                                    override fun done(userBase: UserBase?, e: BmobException?) {
-                                        e?.apply {
-                                            printStackTrace()
-                                            loginCallback.invoke(false,e)
-                                        }
-                                        if (e == null) {
-                                            // 注册成功，登录
-                                                applog("注册成功")
-                                            _loginBmobSDKByName(user,loginCallback)
-                                        }
-                                    }
-                                })
-                            } else {
-                                // 直接登录
-                                applog("直接登录")
-                                _loginBmobSDKByName(user,loginCallback)
-                            }
-                        }
-                    }
-                }
-
-            }
-        )
-
-    }
-
-    fun _loginBmobSDKByName(
-        user:BmobUser,
-        loginCallback: (Boolean, Exception?) -> Unit
-    ) {
-        user.login(object : SaveListener<UserBase>() {
-            override fun done(userBase: UserBase?, e: BmobException?) {
-                e?.apply {
-                    printStackTrace()
-                    loginCallback(false, e)
-                }
-                if (e == null) {
-                    applog("登录成功")
-                    loginCallback(true, null)
-                }
-            }
-
-        })
     }
 }
 

@@ -119,10 +119,10 @@ class BooksBlockAdapter(val host:Fragment, val context: Context, val uiStatusCha
 
     fun notifyItemRefresh(book:Book) {
         data.forEachIndexed { index, bookUI ->
-            if (bookUI.book.objectId == book.objectId) {
-                bookUI.book = book
-                holders[index].refreshData(bookUi = bookUI)
-            }
+//            if (bookUI.book.objectId == book.objectId) {
+//                bookUI.book = book
+//                holders[index].refreshData(bookUi = bookUI)
+//            }
         }
     }
 

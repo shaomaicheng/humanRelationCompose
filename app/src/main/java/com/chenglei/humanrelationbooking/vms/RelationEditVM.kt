@@ -1,10 +1,8 @@
 ﻿package com.chenglei.humanrelationbooking.vms
 
 import androidx.lifecycle.viewModelScope
-import cn.bmob.v3.BmobUser
 import com.chenglei.humanrelationbooking.R
 import com.chenglei.humanrelationbooking.base.arch.FlowCollectDataSource
-import com.chenglei.humanrelationbooking.base.arch.newFetch
 import com.chenglei.humanrelationbooking.utils.toast
 import com.hangshun.huadian.android.common.arch.BaseViewModel
 import com.hangshun.huadian.android.common.meta.ParamAndResult
@@ -47,18 +45,7 @@ class RelationEditDataSource(scope: CoroutineScope) :
         remark: String,
         relation: String
     ) {
-        val relationItem = RelationItem(
-            name,
-            relation = relation,
-            phone,
-            remark = remark,
-            owner = BmobUser.getCurrentUser().objectId
-        )
-        request {
-            newFetch(relationItem) {
-                val objectId = relationItem.saveSync()
-                ApiResult.success(relationItem.apply { this.objectId = objectId })
-            }
-        }
+
+
     }
 }

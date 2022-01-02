@@ -1,13 +1,6 @@
 ﻿package com.chenglei.humanrelationbooking.books.datasource
 
 import android.content.Context
-import cn.bmob.v3.BmobBatch
-import cn.bmob.v3.BmobQuery
-import cn.bmob.v3.BmobUser
-import cn.bmob.v3.datatype.BatchResult
-import cn.bmob.v3.exception.BmobException
-import cn.bmob.v3.listener.QueryListListener
-import cn.bmob.v3.listener.SaveListener
 import com.chenglei.humanrelationbooking.R
 import com.chenglei.humanrelationbooking.base.arch.FlowCollectDataSource
 import com.chenglei.humanrelationbooking.base.arch.newFetch
@@ -42,29 +35,29 @@ class NewBooksDataSource(val context: Context, private val scope: CoroutineScope
     fun getBooks() {
         request {
             newFetch("") {
-                val mine = BmobUser.getCurrentUser().objectId
-                val remotes= BmobQuery<Book>().addWhereEqualTo("userId", mine)
-                    .findObjectsSync(Book::class.java)
-
-                if (remotes.isNotEmpty()) {
-                    ApiResult.success(remotes)
-                } else {
-
-                    val finalRet = systems.map {
-                        Book(it, BmobUser.getCurrentUser().objectId, 0, 0)
-                    }
-                    finalRet.forEach {book->
-                        if (BmobQuery<Book>()
-                                .addWhereEqualTo("userId", BmobUser.getCurrentUser().objectId)
-                                .addWhereEqualTo("name", book.name)
-                                .findObjectsSync(Book::class.java).isEmpty()) {
-                            book.save(object : SaveListener<String>() {
-                                override fun done(p0: String?, p1: BmobException?) {}
-                            })
-                        }
-                    }
-                    ApiResult.success(finalRet)
-                }
+//                val mine = BmobUser.getCurrentUser().objectId
+//                val remotes= BmobQuery<Book>().addWhereEqualTo("userId", mine)
+//                    .findObjectsSync(Book::class.java)
+//
+//                if (remotes.isNotEmpty()) {
+//                    ApiResult.success(remotes)
+//                } else {
+//
+//                    val finalRet = systems.map {
+//                        Book(it, BmobUser.getCurrentUser().objectId, 0, 0)
+//                    }
+//                    finalRet.forEach {book->
+//                        if (BmobQuery<Book>()
+//                                .addWhereEqualTo("userId", BmobUser.getCurrentUser().objectId)
+//                                .addWhereEqualTo("name", book.name)
+//                                .findObjectsSync(Book::class.java).isEmpty()) {
+//                            book.save(object : SaveListener<String>() {
+//                                override fun done(p0: String?, p1: BmobException?) {}
+//                            })
+//                        }
+//                    }
+                    ApiResult.success(listOf(Book("",0,0)))
+//                }
             }
         }
     }
